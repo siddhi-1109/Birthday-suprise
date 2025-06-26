@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #fff0f5;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background: #ffe4ec;
+      padding: 10px;
+      border-radius: 15px;
+      margin: 10px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+    }
+
+    .nav-bar a {
+      text-decoration: none;
+      color: #d63384;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .nav-bar a:hover {
+      color: #ad1457;
+      transform: scale(1.1);
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .cake {
+      width: 280px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .music-control {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .music-control button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Music Button -->
+  <div class="music-control">
+    <button onclick="toggleMusic()">🔊</button>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" src="music/birthday.mp3" loop></audio>
+
+  <!-- TOP NAV -->
+  <div class="nav-bar">
+    <a href="index.html">Home</a>
+    <a href="wishes.html">Wishes</a>
+    <a href="memories.html">Memories</a>
+  </div>
+
+  <!-- ABOUT SECTION -->
+  <div class="container fade-in">
+    <h1>🎉 About the Birthday Star</h1>
+    <p>Wishing you a day filled with laughter, love, and cake! You deserve all the happiness in the world. Happy Birthday, my friend! 🎂🎈</p>
+    <img src="image/cat5.jpg" alt="Birthday Star" class="cake" />
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="nav-bar">
+    <a href="index.html">Home</a>
+    <a href="wishes.html">Wishes</a>
+    <a href="memories.html">Memories</a>
+  </div>
+
+  <script>
+    const music = document.getElementById("bg-music");
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Autoplay on user interaction (browser policy)
+    window.addEventListener("click", () => {
+      music.play().catch(() => {});
+    }, { once: true });
+  </script>
+
+</body>
+</html>

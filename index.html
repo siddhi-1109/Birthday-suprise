@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #fff0f5;
+      overflow-x: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .cake {
+      width: 280px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #d63384;
+      padding: 10px 20px;
+      border-radius: 25px;
+      background-color: #ffe4ec;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #f8bbd0;
+      transform: scale(1.05);
+    }
+
+    .countdown {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #880e4f;
+    }
+
+    .music-control {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .music-control button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body onload="startCountdown();">
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti"></canvas>
+
+  <!-- Music Button -->
+  <div class="music-control">
+    <button onclick="toggleMusic()">🔊</button>
+  </div>
+
+  <!-- Audio -->
+  <audio id="bgMusic" src="music/birthday.mp4" loop></audio>
+
+  <!-- Birthday Content -->
+  <div class="container">
+    <h1>🎂 Happy Birthday 🎉</h1>
+    <p class="message">Wishing you all the joy your heart can hold.</p>
+    <img src="image/ca.jpg" alt="Birthday Cake" class="cake" />
+
+
+    <div class="countdown" id="countdown">
+      Birthday in: <span id="time"></span>
+    </div>
+
+    <nav>
+      <a href="about.html">About</a>
+      <a href="wishes.html">Wishes</a>
+      <a href="memories.html">Memories</a>
+    </nav>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const music = document.getElementById("bgMusic");
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Allow autoplay after interaction
+    window.addEventListener("click", () => {
+      music.play().catch(() => {});
+    }, { once: true });
+
+    function startCountdown() {
+      const birthday = new Date("2025-07-10T00:00:00").getTime(); // your birthday
+      const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = birthday - now;
+
+        if (distance <= 0) {
+          clearInterval(timer);
+          document.getElementById("time").innerHTML = "🎉 It's Today!";
+        } else {
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          document.getElementById("time").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+      }, 1000);
+    }
+
+    // Confetti Effect
+    const confettiSettings = { target: 'confetti' };
+    const confetti = new ConfettiGenerator(confettiSettings);
+    confetti.render();
+  </script>
+
+</body>
+</html>
